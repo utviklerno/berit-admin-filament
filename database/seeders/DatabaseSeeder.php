@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             UserProfileSeeder::class,
             ProductSeeder::class,
             UserLocationSeeder::class,
+            UserItemSeeder::class,
         ]);
     }
 
