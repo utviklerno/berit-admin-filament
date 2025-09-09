@@ -15,7 +15,7 @@ class ProductSeeder extends Seeder
     {
         // Assuming your test database connection is configured in database.php as 'test_db'
         $userItems = DB::connection('test_db')
-            ->table('products')
+            ->table('user_items')
             ->get();
 
 
@@ -23,8 +23,8 @@ class ProductSeeder extends Seeder
             DB::table('user_items')->insert([
                 'id' => $profile->id,
                 'id_user' => $profile->id_user,
-                'id_product_type' => $profile->id_type,
-                'id_product_type_item' => $profile->id_type_item,
+                'id_product_type' => $profile->id_product_type,
+                'id_product_type_item' => $profile->id_product_type_item,
                 'id_user_location' => $profile->id_user_location,
                 'pri' => $profile->pri,
                 'name' => $profile->name,

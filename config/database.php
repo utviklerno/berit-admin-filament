@@ -63,6 +63,17 @@ return [
             ]) : [],
         ],
 
+        'test_db' => [
+            'driver' => 'mysql',
+            'host' => env('TEST_DB_HOST', '127.0.0.1'),
+            'port' => env('TEST_DB_PORT', '3306'),
+            'database' => env('TEST_DB_DATABASE', 'berit_seed'),
+            'username' => env('TEST_DB_USERNAME', 'berit'),
+            'password' => env('TEST_DB_PASSWORD', 'yksikaksi'),
+            // ... other database configuration options ...
+        ],
+
+
         'mariadb' => [
             'driver' => 'mariadb',
             'url' => env('DB_URL'),
