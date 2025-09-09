@@ -84,27 +84,32 @@ class ItemsRelationManager extends RelationManager
                             return null;
                         }
                         return $state;
-                    }),
+                    })
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('productType.name')
                     ->label('Product Type')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('productTypeItem.name')
                     ->label('Product Item')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('price')
                     ->money()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('price_interval_count')
                     ->label('Per')
                     ->formatStateUsing(fn ($state, $record) => $state . ' ' . str($record->price_interval_type)->plural($state)),
                 IconColumn::make('active')
-                    ->boolean(),
+                    ->boolean()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('pri')
                     ->label('Priority')
                     ->sortable()
-                    ->toggleable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
