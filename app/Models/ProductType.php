@@ -6,14 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductType extends Model
 {
+    public $timestamps = false;
+    
     protected $fillable = [
         'name',
-        'price'
+        'pri',
+        'description'
     ];
 
     public function items()
     {
-        return $this->hasMany(ProductTypeItem::class, 'type_id');
+        return $this->hasMany(ProductTypeItem::class, 'product_type_id');
     }
 
     public function userItems()

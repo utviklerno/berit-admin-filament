@@ -18,50 +18,60 @@ class UserItemSeeder extends Seeder
         
         // Create basic ProductTypes
         $productTypes = [
-            ['id' => 1, 'name' => 'Parkering', 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 2, 'name' => 'Opplag', 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 3, 'name' => 'Selvbetjent lagring', 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 4, 'name' => 'Lagerplasser', 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 5, 'name' => 'Kommersielt lager', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 1, 'name' => 'Parkering', 'pri' => 1, 'description' => 'Parkerings- og kjøretøylagring'],
+            ['id' => 2, 'name' => 'Opplag', 'pri' => 2, 'description' => 'Båtopplag og oppbevaring'],
+            ['id' => 3, 'name' => 'Selvbetjent lagring', 'pri' => 3, 'description' => 'Selvbetjent lagring og containere'],
+            ['id' => 4, 'name' => 'Lagerplasser', 'pri' => 4, 'description' => 'Private lagerplasser og rom'],
+            ['id' => 5, 'name' => 'Kommersielt lager', 'pri' => 5, 'description' => 'Kommersielle lagerlokaler'],
         ];
         
-        DB::table('product_types')->upsert($productTypes, ['id'], ['name', 'updated_at']);
+        DB::table('product_types')->upsert($productTypes, ['id'], ['name', 'pri', 'description']);
 
         // Create ProductTypeItems
         $productTypeItems = [
             // Parkering
-            ['id' => 1, 'id_product_type' => 1, 'name' => 'Parkeringsplasser', 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 2, 'id_product_type' => 1, 'name' => 'Langtidsparkering', 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 3, 'id_product_type' => 1, 'name' => 'Lagring bil', 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 4, 'id_product_type' => 1, 'name' => 'Lagring bobil', 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 5, 'id_product_type' => 1, 'name' => 'Lagring motorsykkel', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 1, 'product_type_id' => 1, 'name' => 'Parkeringsplasser', 'pri' => 1, 'description' => 'Daglige parkeringsplasser', 'price' => 10000],
+            ['id' => 2, 'product_type_id' => 1, 'name' => 'Langtidsparkering', 'pri' => 2, 'description' => 'Parkering for lengre perioder', 'price' => 150000],
+            ['id' => 3, 'product_type_id' => 1, 'name' => 'Lagring bil', 'pri' => 3, 'description' => 'Innendørs billagring', 'price' => 200000],
+            ['id' => 4, 'product_type_id' => 1, 'name' => 'Lagring bobil', 'pri' => 4, 'description' => 'Lagring av bobil og campingvogn', 'price' => 300000],
+            ['id' => 5, 'product_type_id' => 1, 'name' => 'Lagring motorsykkel', 'pri' => 5, 'description' => 'Trygg lagring av motorsykkel', 'price' => 80000],
             
             // Opplag
-            ['id' => 6, 'id_product_type' => 2, 'name' => 'Båtopplag inne', 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 7, 'id_product_type' => 2, 'name' => 'Båtopplag ute', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 6, 'product_type_id' => 2, 'name' => 'Båtopplag inne', 'pri' => 1, 'description' => 'Innendørs båtlagring', 'price' => 400000],
+            ['id' => 7, 'product_type_id' => 2, 'name' => 'Båtopplag ute', 'pri' => 2, 'description' => 'Utendørs båtlagring', 'price' => 250000],
             
             // Selvbetjent lagring
-            ['id' => 8, 'id_product_type' => 3, 'name' => 'Selvbetjente lagerenheter', 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 9, 'id_product_type' => 3, 'name' => 'Lagercontainere', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 8, 'product_type_id' => 3, 'name' => 'Selvbetjente lagerenheter', 'pri' => 1, 'description' => 'Selvbetjente lagerrom', 'price' => 120000],
+            ['id' => 9, 'product_type_id' => 3, 'name' => 'Lagercontainere', 'pri' => 2, 'description' => 'Containere for lagring', 'price' => 180000],
             
             // Lagerplasser
-            ['id' => 10, 'id_product_type' => 4, 'name' => 'Garasjer og boder', 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 11, 'id_product_type' => 4, 'name' => 'Uthus og skur', 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 12, 'id_product_type' => 4, 'name' => 'Ekstra rom', 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 13, 'id_product_type' => 4, 'name' => 'Kjeller', 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 14, 'id_product_type' => 4, 'name' => 'Loft', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 10, 'product_type_id' => 4, 'name' => 'Garasjer og boder', 'pri' => 1, 'description' => 'Private garasjer og boder', 'price' => 160000],
+            ['id' => 11, 'product_type_id' => 4, 'name' => 'Uthus og skur', 'pri' => 2, 'description' => 'Uthus og mindre skur', 'price' => 100000],
+            ['id' => 12, 'product_type_id' => 4, 'name' => 'Ekstra rom', 'pri' => 3, 'description' => 'Ledige rom til lagring', 'price' => 80000],
+            ['id' => 13, 'product_type_id' => 4, 'name' => 'Kjeller', 'pri' => 4, 'description' => 'Kjellerlokaler', 'price' => 70000],
+            ['id' => 14, 'product_type_id' => 4, 'name' => 'Loft', 'pri' => 5, 'description' => 'Loftslokaler', 'price' => 60000],
             
             // Kommersielt lager
-            ['id' => 15, 'id_product_type' => 5, 'name' => 'Varehus / Lagerbygninger', 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 16, 'id_product_type' => 5, 'name' => 'Bedriftslagring', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 15, 'product_type_id' => 5, 'name' => 'Varehus / Lagerbygninger', 'pri' => 1, 'description' => 'Store lagerlokaler', 'price' => 500000],
+            ['id' => 16, 'product_type_id' => 5, 'name' => 'Bedriftslagring', 'pri' => 2, 'description' => 'Bedriftslagring og arkiv', 'price' => 350000],
         ];
         
-        DB::table('product_type_items')->upsert($productTypeItems, ['id'], ['name', 'updated_at']);
+        DB::table('product_type_items')->upsert($productTypeItems, ['id'], ['name', 'pri', 'description', 'price']);
 
         echo "Creating UserItems for each user...\n";
         
         // Get all users with their locations
         $usersWithLocations = User::with('locations')->get();
+        $usersWithLocationsCount = $usersWithLocations->filter(function ($user) {
+            return $user->locations->isNotEmpty();
+        })->count();
+        
+        echo "Found {$usersWithLocationsCount} users with locations out of {$usersWithLocations->count()} total users...\n";
+        
+        if ($usersWithLocationsCount === 0) {
+            echo "No users have locations! Please run UserLocationSeeder first.\n";
+            return;
+        }
         
         $userItemsData = [];
         $itemDescriptions = [
@@ -79,7 +89,9 @@ class UserItemSeeder extends Seeder
         
         $priceIntervalTypes = ['day', 'week', 'month'];
         
-        $itemId = 1;
+        // Get the next available ID to avoid conflicts
+        $maxId = DB::table('user_items')->max('id') ?? 0;
+        $itemId = $maxId + 1;
         
         foreach ($usersWithLocations as $user) {
             if ($user->locations->isEmpty()) {
@@ -109,7 +121,7 @@ class UserItemSeeder extends Seeder
                 $userItemsData[] = [
                     'id' => $itemId++,
                     'id_user' => $user->id,
-                    'id_product_type' => $productTypeItem['id_product_type'],
+                    'id_product_type' => $productTypeItem['product_type_id'],
                     'id_product_type_item' => $productTypeItem['id'],
                     'id_user_location' => $location->id,
                     'pri' => rand(0, 10),

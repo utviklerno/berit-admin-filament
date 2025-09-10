@@ -9,17 +9,23 @@ use App\Filament\Resources\Users\Pages\ViewUser;
 use App\Filament\Resources\Users\Schemas\UserForm;
 use App\Filament\Resources\Users\Tables\UsersTable;
 use App\Models\User;
-use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Management';
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return 1;
+    }
 
     public static function form(Schema $schema): Schema
     {

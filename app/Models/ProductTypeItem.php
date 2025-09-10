@@ -6,17 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductTypeItem extends Model
 {
+    public $timestamps = false;
+    
     protected $fillable = [
-        'product_id',
-        'type_id',
+        'product_type_id',
         'name',
         'description',
+        'pri',
         'price'
     ];
 
     public function productType()
     {
-        return $this->belongsTo(ProductType::class, 'type_id');
+        return $this->belongsTo(ProductType::class, 'product_type_id');
     }
 
     public function userItems()

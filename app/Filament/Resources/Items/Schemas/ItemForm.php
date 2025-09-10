@@ -28,7 +28,7 @@ class ItemForm
                     ->options(function (callable $get) {
                         $userId = $get('id_user');
                         if ($userId) {
-                            return UserLocation::where('id_user', $userId)
+                            return UserLocation::where('user_id', $userId)
                                 ->get()
                                 ->pluck('name', 'id');
                         }
@@ -44,10 +44,19 @@ class ItemForm
                 Select::make('id_product_type')
                     ->label('Product Type')
                     ->options(ProductType::all()->pluck('name', 'id'))
-                    ->required(),
+                    ->required()
+                    ->reactive(),
                 Select::make('id_product_type_item')
                     ->label('Product Type Item')
-                    ->options(ProductTypeItem::all()->pluck('name', 'id'))
+                    ->options(function (callable $get) {
+                        $productTypeId = $get('id_product_type');
+                        if ($productTypeId) {
+                            return ProductTypeItem::where('product_type_id', $productTypeId)
+                                ->get()
+                                ->pluck('name', 'id');
+                        }
+                        return [];
+                    })
                     ->required(),
                 TextInput::make('price')
                     ->numeric()
