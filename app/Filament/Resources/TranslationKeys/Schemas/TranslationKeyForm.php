@@ -30,8 +30,12 @@ class TranslationKeyForm
                         
                         TextInput::make('full_key')
                             ->label('Full Key')
-                            ->disabled()
-                            ->helperText('Auto-generated full key path'),
+                            ->readOnly()
+                            ->suffixIcon('heroicon-o-clipboard')
+                            ->extraAttributes([
+                                'onclick' => 'this.select(); document.execCommand("copy"); alert("Copied to clipboard!");'
+                            ])
+                            ->helperText('Click to select and copy the full key path'),
                         
                         Textarea::make('description')
                             ->maxLength(500)
