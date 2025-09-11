@@ -100,6 +100,12 @@ class ItemForm
                             ->hiddenOn(['view'])
                             ->columnSpanFull(),
                         View::make('filament.components.item-image-gallery')
+                            ->viewData(function ($record) {
+                                return [
+                                    'record' => $record,
+                                    'getRecord' => function() use ($record) { return $record; }
+                                ];
+                            })
                             ->hiddenOn(['create'])
                             ->columnSpanFull(),
                     ])

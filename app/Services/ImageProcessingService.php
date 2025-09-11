@@ -123,6 +123,20 @@ class ImageProcessingService
             }
         }
     }
+    
+    public function deleteImage(string $hash, int $itemId): void
+    {
+        $directory = "useritems/{$itemId}";
+        
+        foreach ($this->sizes as $sizeName => $dimension) {
+            $filename = "{$hash}-{$sizeName}.webp";
+            $path = "{$directory}/{$filename}";
+            
+            if (Storage::disk($this->getDisk())->exists($path)) {
+                Storage::disk($this->getDisk())->delete($path);
+            }
+        }
+    }
 
     public function getImageUrl(string $hash, string $size, int $itemId): ?string
     {

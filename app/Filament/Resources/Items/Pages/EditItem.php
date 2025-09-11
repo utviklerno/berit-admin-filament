@@ -7,6 +7,7 @@ use App\Services\ImageProcessingService;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Notifications\Notification;
+use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -132,5 +133,54 @@ class EditItem extends EditRecord
                 ->success()
                 ->send();
         }
+    }
+
+    public function updateImageOrder(Request $request)
+    {
+        $newOrder = $request->input('order', []);
+        $currentImages = $this->record->images ?? [];
+        
+        if (empty($newOrder) || empty($currentImages)) {
+            return response()->json(['success' => false, 'message' => 'Invalid data']);
+        }
+        
+        // Reorder the images based on the new order
+        $reorderedImages = [];
+        foreach ($newOrder as $hash) {
+            if (isset($currentImages[$hash])) {
+                $reorderedImages[$hash] = $currentImages[$hash];
+            }
+        }
+        
+        // Add any images that weren't in the new order (safety measure)
+        foreach ($currentImages as $hash => $data) {
+            if (!isset($reorderedImages[$hash])) {
+                $reorderedImages[$hash] = $data;
+            }
+        }
+        
+        $this->record->update(['images' => $reorderedImages]);
+        
+        return response()->json(['success' => true, 'message' => 'Image order updated successfully']);
+    }
+    
+    public function deleteImage(Request $request)
+    {
+        $hashToDelete = $request->input('hash');
+        $currentImages = $this->record->images ?? [];
+        
+        if (!$hashToDelete || !isset($currentImages[$hashToDelete])) {
+            return response()->json(['success' => false, 'message' => 'Image not found']);
+        }
+        
+        // Delete files from storage
+        $imageProcessingService = app(ImageProcessingService::class);
+        $imageProcessingService->deleteImage($hashToDelete, $this->record->id);
+        
+        // Remove from database
+        unset($currentImages[$hashToDelete]);
+        $this->record->update(['images' => $currentImages]);
+        
+        return response()->json(['success' => true, 'message' => 'Image deleted successfully']);
     }
 }
