@@ -18,10 +18,12 @@ class UserItem extends Model
         'price',
         'price_interval_type',
         'price_interval_count',
+        'images',
     ];
 
     protected $casts = [
         'active' => 'boolean',
+        'images' => 'json',
     ];
 
     public function user()

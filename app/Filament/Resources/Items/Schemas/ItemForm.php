@@ -6,11 +6,15 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\FileUpload;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\View;
 use Filament\Schemas\Schema;
 use App\Models\ProductType;
 use App\Models\ProductTypeItem;
 use App\Models\User;
 use App\Models\UserLocation;
+use App\Services\ImageProcessingService;
 
 class ItemForm
 {
@@ -79,6 +83,27 @@ class ItemForm
                     ->default(0),
                 Toggle::make('active')
                     ->default(true),
+                Section::make('Images')
+                    ->schema([
+                        FileUpload::make('temp_images')
+                            ->label('Upload Images')
+                            ->helperText('Upload images and save the form to process them into WebP format with multiple sizes')
+                            ->image()
+                            ->multiple()
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
+                            ->maxSize(10240)
+                            ->maxFiles(10)
+                            ->disk('local')
+                            ->directory('temp-uploads')
+                            ->visibility('private')
+                            ->previewable(false)
+                            ->hiddenOn(['view'])
+                            ->columnSpanFull(),
+                        View::make('filament.components.item-image-gallery')
+                            ->hiddenOn(['create'])
+                            ->columnSpanFull(),
+                    ])
+                    ->columnSpanFull(),
             ]);
     }
 }
