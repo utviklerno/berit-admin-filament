@@ -12,6 +12,12 @@ use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
+use App\Filament\Widgets\UsersStatsWidget;
+use App\Filament\Widgets\ItemsStatsWidget;
+use App\Filament\Widgets\ProductTypesStatsWidget;
+use App\Filament\Widgets\RevenueStatsWidget;
+use App\Filament\Widgets\ItemsChartWidget;
+use App\Filament\Widgets\RevenueChartWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -41,7 +47,12 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
                 AccountWidget::class,
-                FilamentInfoWidget::class,
+                UsersStatsWidget::class,
+                ItemsStatsWidget::class,
+                ProductTypesStatsWidget::class,
+                RevenueStatsWidget::class,
+                ItemsChartWidget::class,
+                RevenueChartWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
