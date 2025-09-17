@@ -1,0 +1,544 @@
+/* Berit Admin - Custom Global Styles */
+
+/* ==========================================================================
+   Custom Utility Classes - Regular CSS
+   ========================================================================== */
+
+.berit-card {
+    background-color: white;
+    border-radius: 0.5rem;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.dark .berit-card {
+    background-color: #111827;
+    border-color: #374151;
+}
+
+.berit-card-header {
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.dark .berit-card-header {
+    border-color: #374151;
+    background-color: #1f2937;
+}
+
+.berit-card-body {
+    padding: 1rem;
+}
+
+.berit-button-primary {
+    background-color: #2563eb;
+    color: white;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.berit-button-primary:hover {
+    background-color: #1d4ed8;
+}
+
+.berit-button-secondary {
+    background-color: #e5e7eb;
+    color: #1f2937;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.berit-button-secondary:hover {
+    background-color: #d1d5db;
+}
+
+.berit-button-danger {
+    background-color: #dc2626;
+    color: white;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.berit-button-danger:hover {
+    background-color: #b91c1c;
+}
+
+/* Badge Styles */
+.berit-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.125rem 0.625rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.berit-badge-success {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.dark .berit-badge-success {
+    background-color: #166534;
+    color: #dcfce7;
+}
+
+.berit-badge-warning {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.dark .berit-badge-warning {
+    background-color: #92400e;
+    color: #fef3c7;
+}
+
+.berit-badge-danger {
+    background-color: #fecaca;
+    color: #991b1b;
+}
+
+.dark .berit-badge-danger {
+    background-color: #991b1b;
+    color: #fecaca;
+}
+
+.berit-badge-info {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.dark .berit-badge-info {
+    background-color: #1e40af;
+    color: #dbeafe;
+}
+
+/* ==========================================================================
+   Image Gallery Enhancements
+   ========================================================================== */
+
+.berit-image-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .berit-image-gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .berit-image-gallery {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.berit-image-item {
+    position: relative;
+    aspect-ratio: 1;
+    background-color: #f3f4f6;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    transition: all 0.2s;
+}
+
+.dark .berit-image-item {
+    background-color: #1f2937;
+    border-color: #374151;
+}
+
+.berit-image-item:hover {
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.berit-image-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.berit-image-item:hover .berit-image-overlay {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.berit-image-actions {
+    opacity: 0;
+    transition: opacity 0.2s;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.berit-image-item:hover .berit-image-actions {
+    opacity: 1;
+}
+
+.berit-drag-handle {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 9999px;
+    padding: 0.25rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+    cursor: move;
+}
+
+.berit-image-item:hover .berit-drag-handle {
+    opacity: 1;
+}
+
+.berit-delete-button {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    background-color: #ef4444;
+    border-radius: 9999px;
+    padding: 0.5rem;
+    opacity: 0.7;
+    transition: all 0.2s;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    z-index: 10;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+.berit-delete-button:hover,
+.berit-image-item:hover .berit-delete-button {
+    opacity: 1;
+    background-color: #dc2626;
+}
+
+.berit-priority-badge {
+    position: absolute;
+    top: -0.5rem;
+    left: -0.5rem;
+    background-color: #3b82f6;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 9999px;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================================================
+   Dashboard Widgets
+   ========================================================================== */
+
+.berit-widget {
+    background-color: white;
+    border-radius: 0.5rem;
+    border: 1px solid #e5e7eb;
+    padding: 1.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.dark .berit-widget {
+    background-color: #111827;
+    border-color: #374151;
+}
+
+.berit-widget-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.berit-widget-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.dark .berit-widget-title {
+    color: white;
+}
+
+.berit-widget-value {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.dark .berit-widget-value {
+    color: white;
+}
+
+.berit-widget-description {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.dark .berit-widget-description {
+    color: #9ca3af;
+}
+
+/* Stat Cards with Gradients */
+.berit-stat-card-primary {
+    background: linear-gradient(to right, #3b82f6, #2563eb);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.berit-stat-card-success {
+    background: linear-gradient(to right, #10b981, #059669);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.berit-stat-card-warning {
+    background: linear-gradient(to right, #f59e0b, #d97706);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.berit-stat-card-danger {
+    background: linear-gradient(to right, #ef4444, #dc2626);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================================================
+   Loading & Animation States
+   ========================================================================== */
+
+.berit-loading {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.berit-fade-in {
+    animation: fade-in 0.5s ease-out;
+}
+
+.berit-slide-up {
+    animation: slide-up 0.5s ease-out;
+}
+
+.berit-bounce-in {
+    animation: bounce-in 0.6s ease-out;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slide-up {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes bounce-in {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ==========================================================================
+   Form Enhancements
+   ========================================================================== */
+
+.berit-form-section {
+    background-color: white;
+    border-radius: 0.5rem;
+    border: 1px solid #e5e7eb;
+    margin-bottom: 1.5rem;
+}
+
+.dark .berit-form-section {
+    background-color: #111827;
+    border-color: #374151;
+}
+
+.berit-form-section-header {
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dark .berit-form-section-header {
+    border-color: #374151;
+}
+
+.berit-form-section-title {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #111827;
+}
+
+.dark .berit-form-section-title {
+    color: white;
+}
+
+.berit-form-section-body {
+    padding: 1rem;
+}
+
+.berit-help-text {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+}
+
+.dark .berit-help-text {
+    color: #9ca3af;
+}
+
+/* ==========================================================================
+   Responsive Grid Utilities
+   ========================================================================== */
+
+.berit-dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    .berit-dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1280px) {
+    .berit-dashboard-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.berit-chart-container {
+    background-color: white;
+    border-radius: 0.5rem;
+    border: 1px solid #e5e7eb;
+    padding: 1.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.dark .berit-chart-container {
+    background-color: #111827;
+    border-color: #374151;
+}
+
+/* ==========================================================================
+   Filament Component Enhancements
+   ========================================================================== */
+
+/* Enhanced file upload styling */
+.fi-fo-file-upload .fi-fo-file-upload-item {
+    background-color: white;
+    border-radius: 0.5rem;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transition: all 0.2s;
+}
+
+.fi-fo-file-upload .fi-fo-file-upload-item:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Enhanced modal styling */
+.fi-modal-content {
+    border-radius: 0.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Custom scrollbar */
+.berit-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.berit-scrollbar::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+
+.berit-scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.berit-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+.dark .berit-scrollbar::-webkit-scrollbar-track {
+    background: #1e293b;
+}
+
+.dark .berit-scrollbar::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+.dark .berit-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}

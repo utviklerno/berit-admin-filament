@@ -31,21 +31,21 @@
     @endphp
 
     @if(count($images) > 0)
-        <div class="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700">
-            <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
-                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Item Images</h3>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Drag to reorder priority</p>
+        <div class="berit-card">
+            <div class="berit-card-header">
+                <h3 class="berit-form-section-title">Item Images</h3>
+                <p class="berit-help-text">Drag to reorder priority</p>
             </div>
 
-            <div class="p-4">
-                <div
-                    class="grid grid-cols-2 md:grid-cols-4 gap-4"
+            <div class="berit-card-body">
+                <div 
+                    class="berit-image-gallery" 
                     id="sortable-images"
                     x-ref="sortableContainer"
                 >
                     @foreach($images as $index => $image)
-                        <div
-                            class="relative group draggable-item cursor-move"
+                        <div 
+                            class="berit-image-item draggable-item cursor-move" 
                             draggable="true"
                             data-hash="{{ $image['hash'] }}"
                             x-on:dragstart="dragStart($event)"
@@ -55,12 +55,45 @@
                             x-on:drop="drop($event)"
                             x-on:dragend="dragEnd($event)"
                         >
-                            <div class="aspect-square w-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-lg">
-                                <img
-                                    src="{{ $image['thumb'] }}"
-                                    alt="Item image"
-                                    class="w-full h-full object-cover pointer-events-none select-none"
-                                >
+                            <img 
+                                src="{{ $image['thumb'] }}" 
+                                alt="Item image"
+                                class="w-full h-full object-cover pointer-events-none select-none"
+                            >
+                            
+                            {{-- Priority Badge --}}
+                            <div class="berit-priority-badge">
+                                {{ $index + 1 }}
+                            </div>
+                            
+                            {{-- Drag Handle --}}
+                            <div class="berit-drag-handle">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path>
+                                </svg>
+                            </div>
+                            
+                            {{-- Delete Button --}}
+                            <button 
+                                onclick="deleteImage('{{ $image['hash'] }}')"
+                                class="berit-delete-button"
+                                title="Delete image ({{ substr($image['hash'], 0, 8) }}...)"
+                            >
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                            </button>
+                            
+                            {{-- Image Overlay --}}
+                            <div class="berit-image-overlay">
+                                <div class="berit-image-actions">
+                                    <button 
+                                        onclick="openImageModal('{{ $image['large'] }}')"
+                                        class="bg-white text-gray-800 px-3 py-1 rounded hover:bg-gray-100 transition-colors"
+                                    >
+                                        View
+                                    </button>
+                                </div>
                             </div>
 
                             {{-- Priority Badge --}}
