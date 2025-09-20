@@ -31,14 +31,19 @@ class SubpagesRelationManager extends RelationManager
                     ->schema([
                 Select::make('language_id')
                     ->label('Language')
-                    ->options(function () {
+                    ->options(function ($record) {
                         $owner = $this->getOwnerRecord();
                         $all = Language::query()
                             ->orderBy('sort_order')
                             ->orderBy('name')
                             ->get();
 
-                        // Exclude languages already used in this page's subpages when creating
+                        // When editing, include current language
+                        if ($record && $record->language_id) {
+                            return $all->mapWithKeys(fn ($l) => [$l->id => $l->display_name])->toArray();
+                        }
+
+                        // When creating, exclude used languages
                         if ($owner) {
                             $used = $owner->subpages()->pluck('language_id')->all();
                             $all = $all->reject(fn ($lang) => in_array($lang->id, $used, true));
@@ -49,7 +54,7 @@ class SubpagesRelationManager extends RelationManager
                     ->placeholder('Select language')
                     ->preload()
                     ->required()
-                    ->disabledOn('edit'),
+                    ->disabled(fn ($record) => $record && $record->exists && $record->language_id),
 
                 TextInput::make('title')
                     ->required()
