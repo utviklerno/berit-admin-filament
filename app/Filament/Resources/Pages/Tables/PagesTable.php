@@ -28,6 +28,14 @@ class PagesTable
                 TextColumn::make('meta_title')
                     ->label('Meta Title')
                     ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('created_at')
+                    ->label('Created At')
+                    ->sortable()
+                    ->dateTime(),
+                TextColumn::make('updated_at')
+                    ->label('Last Updated')
+                    ->sortable()
+                    ->dateTime(),
             ])
             ->actions([
                 EditAction::make(),
