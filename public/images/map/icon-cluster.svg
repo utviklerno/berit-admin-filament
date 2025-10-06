@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32.62 35.3">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #754c24;
+        font-family: CalSans-Regular, 'Cal Sans';
+        font-size: 20.62px;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: #fbb03b;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <path class="cls-2" d="M32.62,3.22v21.38c0,1.78-1.44,3.22-3.22,3.22h-4.6c-.93,0-1.81.4-2.42,1.1l-5.27,6.01c-.42.48-1.17.48-1.59,0l-5.26-6.01c-.61-.7-1.5-1.1-2.43-1.1H3.22c-1.78,0-3.22-1.44-3.22-3.22V3.22C0,1.44,1.44,0,3.22,0h26.17c1.78,0,3.22,1.44,3.22,3.22Z"/>
+    <path class="cls-3" d="M29.59,3.83v20.16c0,.71-.58,1.29-1.29,1.29h-6.58c-.68,0-1.32.32-1.72.87l-2.9,3.95c-.4.54-1.2.57-1.63.04l-3.37-4.09c-.41-.49-1.01-.78-1.65-.78h-6.13c-.71,0-1.29-.57-1.29-1.29V3.83c0-.71.58-1.29,1.29-1.29h23.98c.71,0,1.29.58,1.29,1.29Z"/>
+    <text class="cls-1" transform="translate(12.23 21.27)"><tspan x="0" y="0">7</tspan></text>
+  </g>
+</svg>

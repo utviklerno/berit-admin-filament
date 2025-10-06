@@ -24,6 +24,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Support\HtmlString;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -36,6 +37,9 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->authGuard('admin')
             ->brandName('Berit Admin')
+            //->brandLogo(asset('images/logo/black.svg'))
+            ->brandLogo(fn () => new HtmlString(view('filament.components.login_logo')->render()))
+            ->brandLogoHeight('3rem')
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->colors([
                 'primary' => Color::Amber,
