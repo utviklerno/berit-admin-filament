@@ -6,6 +6,8 @@ use Filament\Tables\Table;
 use App\Models\AdminUser;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Filament\Support\Colors\Color;
+use Filament\Support\Facades\FilamentColor;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,5 +34,14 @@ class AppServiceProvider extends ServiceProvider
             $table->defaultPaginationPageOption(25)
                   ->paginationPageOptions([10, 25, 50, 100]);
         });
+
+        FilamentColor::register([
+            'danger' => Color::Rose,
+            'gray' => Color::Stone,
+            'info' => Color::Sky,
+            'primary' => Color::Amber,
+            'success' => Color::Emerald,
+            'warning' => Color::Yellow,
+        ]);
     }
 }
