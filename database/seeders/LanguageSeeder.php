@@ -91,10 +91,67 @@ class LanguageSeeder extends Seeder
                 'locale_code' => 'sv_SE',
                 'collation' => 'utf8mb4_swedish_ci',
             ],
+            [
+                'name' => 'Danish',
+                'native_name' => 'Dansk',
+                'code' => 'da',
+                'iso_code' => 'da',
+                'flag_emoji' => '🇩🇰',
+                'is_active' => true,
+                'is_default' => false,
+                'is_fallback' => false,
+                'sort_order' => 4,
+                'region' => 'Nordic',
+                'country_code' => 'DK',
+                'timezone' => 'Europe/Copenhagen',
+                'first_day_of_week' => 1,
+                'currency_code' => 'DKK',
+                'currency_symbol' => 'kr',
+                'currency_position' => 'after',
+                'currency_space' => true,
+                'currency_decimals' => 2,
+                'decimal_separator' => ',',
+                'thousands_separator' => ' ',
+                'date_format' => 'd.m.Y',
+                'time_format' => 'H:i',
+                'datetime_format' => 'd.m.Y H:i',
+                'locale_code' => 'da_DK',
+                'collation' => 'utf8mb4_danish_ci',
+            ],
+            [
+                'name' => 'Finnish',
+                'native_name' => 'Suomi',
+                'code' => 'fi',
+                'iso_code' => 'fi',
+                'flag_emoji' => '🇫🇮',
+                'is_active' => true,
+                'is_default' => false,
+                'is_fallback' => false,
+                'sort_order' => 5,
+                'region' => 'Nordic',
+                'country_code' => 'FI',
+                'timezone' => 'Europe/Helsinki',
+                'first_day_of_week' => 1,
+                'currency_code' => 'EUR',
+                'currency_symbol' => '€',
+                'currency_position' => 'after',
+                'currency_space' => true,
+                'currency_decimals' => 2,
+                'decimal_separator' => ',',
+                'thousands_separator' => ' ',
+                'date_format' => 'd.m.Y',
+                'time_format' => 'H:i',
+                'datetime_format' => 'd.m.Y H:i',
+                'locale_code' => 'fi_FI',
+                'collation' => 'utf8mb4_finnish_ci',
+            ],
         ];
 
         foreach ($languages as $language) {
-            Language::create($language);
+            Language::updateOrCreate(
+                ['code' => $language['code']],
+                $language
+            );
         }
     }
 }
