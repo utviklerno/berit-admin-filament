@@ -41,3 +41,6 @@ Concise guide for contributing to this Laravel 12 + Filament 4 app with Vite + T
 - Do not commit secrets; ensure `APP_KEY` is set
 - Fix permissions for `storage/` and `bootstrap/cache/`
 - Create storage symlink if needed: `php artisan storage:link`
+
+## Custom Agents
+- `Laravel & Filament Specialist`: Use when work requires deep knowledge of Filament 4+ or Laravel 12 internals. See `agents/laravel-filament-specialist.md` for persona, workflow, and quality guardrails.
