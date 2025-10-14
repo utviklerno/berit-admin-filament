@@ -21,18 +21,19 @@ class PagesTable
                     ->label('ID')
                     ->sortable()
                     ->width(80),
+                TextColumn::make('meta_title')
+                    ->label('Meta Title'),
                 TextColumn::make('pagename')
                     ->label('Page Name')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('meta_title')
-                    ->label('Meta Title')
-                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->label('Created At')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable()
                     ->dateTime(),
                 TextColumn::make('updated_at')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->label('Last Updated')
                     ->sortable()
                     ->dateTime(),

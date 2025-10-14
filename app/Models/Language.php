@@ -41,6 +41,11 @@ class Language extends Model
         return $this->hasMany(TranslationValue::class);
     }
 
+    public function menuItemSlugs(): HasMany
+    {
+        return $this->hasMany(MenuItemSlug::class);
+    }
+
     public function updatedByUser(): BelongsTo
     {
         return $this->belongsTo(AdminUser::class, 'updated_by');

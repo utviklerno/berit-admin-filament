@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Menus\RelationManagers;
 
+use App\Models\Language;
 use App\Models\Page;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
@@ -9,6 +10,7 @@ use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -23,6 +25,10 @@ use Illuminate\Support\Str;
 class MenuItemsRelationManager extends RelationManager
 {
     protected static string $relationship = 'menuItems';
+
+    protected ?array $languageOptionsCache = null;
+
+    protected ?int $defaultLanguageIdCache = null;
 
     public function form(Schema $schema): Schema
     {
@@ -61,6 +67,7 @@ class MenuItemsRelationManager extends RelationManager
                                 }
 
                                 $set('slug', $suggestion);
+                                $this->syncDefaultLocalizedSlug($set, $get, $suggestion);
                             }),
                         TextInput::make('slug')
                             ->label('Slug')
@@ -93,11 +100,39 @@ class MenuItemsRelationManager extends RelationManager
                                         }
 
                                         $set('slug', $suggestion);
+                                        $this->syncDefaultLocalizedSlug($set, $get, $suggestion, true);
                                     })
                             ,
                                 true
                             )
+                            ->afterStateUpdated(function ($state, Set $set, Get $get) {
+                                if (blank($state)) {
+                                    return;
+                                }
+
+                                $this->syncDefaultLocalizedSlug($set, $get, Str::slug($state), true);
+                            })
                             ->dehydrateStateUsing(fn ($state) => filled($state) ? Str::slug($state) : $state),
+                        Repeater::make('localizedSlugs')
+                            ->label('Localized slugs')
+                            ->relationship('localizedSlugs')
+                            ->schema([
+                                Select::make('language_id')
+                                    ->label('Language')
+                                    ->options(fn () => $this->getLanguageOptions())
+                                    ->required()
+                                    ->searchable()
+                                    ->preload(),
+                                TextInput::make('slug')
+                                    ->label('Slug')
+                                    ->required()
+                                    ->maxLength(255)
+                                    ->dehydrateStateUsing(fn ($state) => filled($state) ? Str::slug($state) : $state),
+                            ])
+                            ->addActionLabel('Add language slug')
+                            ->defaultItems(0)
+                            ->columns(2)
+                            ->columnSpanFull(),
                     ])
                     ->columns(1)
                     ->columnSpanFull(),
@@ -152,6 +187,68 @@ class MenuItemsRelationManager extends RelationManager
                 return [$page->id => $label];
             })
             ->all();
+    }
+
+    protected function getLanguageOptions(): array
+    {
+        if ($this->languageOptionsCache !== null) {
+            return $this->languageOptionsCache;
+        }
+
+        $this->languageOptionsCache = Language::query()
+            ->active()
+            ->ordered()
+            ->get()
+            ->mapWithKeys(fn (Language $language) => [$language->id => $language->full_display])
+            ->all();
+
+        return $this->languageOptionsCache;
+    }
+
+    protected function getDefaultLanguageId(): ?int
+    {
+        if ($this->defaultLanguageIdCache !== null) {
+            return $this->defaultLanguageIdCache;
+        }
+
+        $this->defaultLanguageIdCache = Language::query()
+            ->where('is_default', true)
+            ->value('id');
+
+        return $this->defaultLanguageIdCache;
+    }
+
+    protected function syncDefaultLocalizedSlug(Set $set, Get $get, string $suggestion, bool $force = false): void
+    {
+        $defaultLanguageId = $this->getDefaultLanguageId();
+
+        if (! $defaultLanguageId) {
+            return;
+        }
+
+        $localizedSlugs = $get('localizedSlugs') ?? [];
+        $hasDefault = false;
+
+        foreach ($localizedSlugs as $key => $item) {
+            if (($item['language_id'] ?? null) !== $defaultLanguageId) {
+                continue;
+            }
+
+            $hasDefault = true;
+
+            if ($force || blank($item['slug'] ?? null)) {
+                $localizedSlugs[$key]['slug'] = $suggestion;
+            }
+        }
+
+        if (! $hasDefault) {
+            $localizedSlugs[] = [
+                'language_id' => $defaultLanguageId,
+                'slug' => $suggestion,
+            ];
+        }
+
+        $set('localizedSlugs', $localizedSlugs);
     }
 
     protected function generateSlugSuggestion(Page $page): ?string

@@ -5,30 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
-class MenuItem extends Model
+class MenuItemSlug extends Model
 {
     protected $fillable = [
-        'menu_id',
+        'menu_item_id',
+        'language_id',
         'slug',
-        'page_id',
     ];
 
-    public function menu(): BelongsTo
+    public function menuItem(): BelongsTo
     {
-        return $this->belongsTo(Menu::class);
+        return $this->belongsTo(MenuItem::class);
     }
 
-    public function page(): BelongsTo
+    public function language(): BelongsTo
     {
-        return $this->belongsTo(Page::class);
-    }
-
-    public function localizedSlugs(): HasMany
-    {
-        return $this->hasMany(MenuItemSlug::class);
+        return $this->belongsTo(Language::class);
     }
 
     protected function slug(): Attribute
