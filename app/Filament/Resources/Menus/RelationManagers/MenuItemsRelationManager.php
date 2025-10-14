@@ -11,6 +11,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Repeater\TableColumn;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -20,6 +21,7 @@ use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
 class MenuItemsRelationManager extends RelationManager
@@ -119,19 +121,26 @@ class MenuItemsRelationManager extends RelationManager
                             ->schema([
                                 Select::make('language_id')
                                     ->label('Language')
+                                    ->hiddenLabel()
                                     ->options(fn () => $this->getLanguageOptions())
                                     ->required()
                                     ->searchable()
                                     ->preload(),
                                 TextInput::make('slug')
                                     ->label('Slug')
+                                    ->hiddenLabel()
                                     ->required()
                                     ->maxLength(255)
                                     ->dehydrateStateUsing(fn ($state) => filled($state) ? Str::slug($state) : $state),
                             ])
+                            ->table([
+                                TableColumn::make('Language')
+                                    ->markAsRequired(),
+                                TableColumn::make('Slug')
+                                    ->markAsRequired(),
+                            ])
                             ->addActionLabel('Add language slug')
                             ->defaultItems(0)
-                            ->columns(2)
                             ->columnSpanFull(),
                     ])
                     ->columns(1)
@@ -148,33 +157,47 @@ class MenuItemsRelationManager extends RelationManager
                     ->label('Slug')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('page.meta_title')
-                    ->label('Page')
-                    ->sortable()
-                    ->toggleable(),
-                TextColumn::make('updated_at')
-                    ->label('Updated')
-                    ->dateTime()
-                    ->sortable(),
-            ])
-            ->headerActions([
-                CreateAction::make()
-                    ->slideOver()
-                    ->modalWidth('7xl'),
-            ])
-            ->recordActions([
-                EditAction::make()
-                    ->slideOver()
-                    ->modalWidth('7xl'),
-                DeleteAction::make(),
-            ])
-            ->bulkActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
-            ])
-            ->defaultSort('id', 'asc');
-    }
+                 TextColumn::make('page.meta_title')
+                     ->label('Page')
+                     ->sortable()
+                     ->toggleable(),
+                 TextColumn::make('localized_locale_codes')
+                     ->label('Locales')
+                     ->badge()
+                     ->color('gray')
+                     ->state(fn ($record) => $record->localizedSlugs
+                         ->map(fn ($slug) => $slug->language?->code)
+                         ->filter()
+                         ->unique()
+                         ->values()
+                         ->all())
+                     ->separator(', ')
+                     ->toggleable(),
+                 TextColumn::make('updated_at')
+                     ->label('Updated')
+                     ->dateTime()
+                     ->sortable(),
+             ])
+             ->headerActions([
+                 CreateAction::make()
+                     ->slideOver()
+                     ->modalWidth('7xl'),
+             ])
+             ->recordActions([
+                 EditAction::make()
+                     ->slideOver()
+                     ->modalWidth('7xl'),
+                 DeleteAction::make(),
+             ])
+             ->bulkActions([
+                 BulkActionGroup::make([
+                     DeleteBulkAction::make(),
+                 ]),
+             ])
+             ->defaultSort('id', 'asc')
+             ->modifyQueryUsing(fn (Builder $query) => $query->with(['localizedSlugs.language']));
+     }
+
 
     protected function getParentPageOptions(): array
     {
