@@ -50,6 +50,10 @@ class PageModulesRelationManager extends RelationManager
                         RichEditor::make('html')
                             ->label('Content')
                             ->visible(fn (Get $get) => $get('type') === PageModule::TYPE_RICH_TEXT)
+                            ->toolbarButtons([
+                                ['bold', 'italic', 'link', 'h2', 'h3'],
+                                ['grid', 'attachFiles'],
+                            ])
                             ->columnSpanFull(),
                         TextInput::make('json.header_text')
                             ->label('Header text')

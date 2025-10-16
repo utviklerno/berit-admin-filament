@@ -98,6 +98,10 @@ class SubpagesRelationManager extends RelationManager
                                         RichEditor::make('html')
                                             ->label('Content')
                                             ->nullable()
+                                            ->toolbarButtons([
+                                                ['bold', 'italic', 'link', 'h2', 'h3'],
+                                                ['grid', 'attachFiles'],
+                                            ])
                                             ->columnSpanFull(),
                                     ])
                                     ->columns(1)
