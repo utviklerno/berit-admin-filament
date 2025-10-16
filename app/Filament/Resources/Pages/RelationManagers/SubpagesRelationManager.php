@@ -2,12 +2,12 @@
 
 namespace App\Filament\Resources\Pages\RelationManagers;
 
+use App\Filament\Resources\Subpages\SubpageResource;
 use App\Models\Language;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -122,14 +122,22 @@ class SubpagesRelationManager extends RelationManager
                 TextColumn::make('title')->searchable()->sortable(),
             ])
             ->headerActions([
-                CreateAction::make()
-                    ->slideOver()
-                    ->modalWidth('7xl'),
+                Action::make('createSubpage')
+                    ->label('Create subpage')
+                    ->icon('heroicon-m-plus')
+                    ->url(fn (): string => SubpageResource::getUrl('create', [
+                        'page_id' => $this->getOwnerRecord()->getKey(),
+                    ]))
+                    ->openUrlInNewTab(false),
             ])
             ->recordActions([
-                EditAction::make()
-                    ->slideOver()
-                    ->modalWidth('7xl'),
+                Action::make('editSubpage')
+                    ->label('Edit')
+                    ->icon('heroicon-m-pencil-square')
+                    ->url(fn ($record): string => SubpageResource::getUrl('edit', [
+                        'record' => $record,
+                    ]))
+                    ->openUrlInNewTab(false),
                 DeleteAction::make(),
             ])
             ->toolbarActions([
