@@ -13,6 +13,7 @@ class Page extends Model
         'meta_description',
         'meta_keywords',
         'meta_image',
+        'html',
     ];
 
     protected $casts = [
