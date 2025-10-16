@@ -10,6 +10,10 @@ use Filament\Resources\Pages\EditRecord;
 class EditPage extends EditRecord
 {
     protected static string $resource = PageResource::class;
+    public function getMaxContentWidth(): ?string
+    {
+        return "full";
+    }
 
     protected function getHeaderActions(): array
     {

@@ -9,6 +9,10 @@ use Filament\Resources\Pages\EditRecord;
 class EditSubpage extends EditRecord
 {
     protected static string $resource = SubpageResource::class;
+    public function getMaxContentWidth(): ?string
+    {
+        return "full";
+    }
 
     public function getBreadcrumbs(): array
     {

@@ -15,10 +15,22 @@
     /* --filament-color-primary-600: #f59e0b; */
 }
 
-/* get the first div in container */
+/* get the first div in container
 .fi-layout > div:nth-child(2) {
-    background-color:#f8f8f8;
+    background-color:#ddd;
 
 }
 
+  .fi-sidebar-item {
+    &.fi-active {
+      & > .fi-sidebar-item-btn {
+        background-color: #fff;
+      }
+    }
+  }
 
+  .fi-sidebar-footer {
+    background-color: #fff;
+    border-radius: 5px;
+  }
+*/
