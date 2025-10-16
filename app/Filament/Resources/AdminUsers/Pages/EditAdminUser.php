@@ -8,4 +8,8 @@ use Filament\Resources\Pages\EditRecord;
 class EditAdminUser extends EditRecord
 {
     protected static string $resource = AdminUserResource::class;
+    public function getMaxContentWidth(): ?string
+    {
+        return "full";
+    }
 }

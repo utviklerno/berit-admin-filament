@@ -9,6 +9,10 @@ use Filament\Resources\Pages\EditRecord;
 class EditMenu extends EditRecord
 {
     protected static string $resource = MenuResource::class;
+    public function getMaxContentWidth(): ?string
+    {
+        return "full";
+    }
 
     protected function getHeaderActions(): array
     {

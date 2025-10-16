@@ -1,0 +1,24 @@
+/*
+ |--------------------------------------------------------------------------
+ | Filament Admin Overrides
+ |--------------------------------------------------------------------------
+ |
+ | Place any custom CSS overrides for the Filament admin panel here.
+ | This file is imported by `resources/css/filament/admin/theme.css`, which is
+ | registered via `AdminPanelProvider`. Update styles below and run `npm run dev`
+ | (or `npm run build`) to apply changes.
+ |
+ */
+
+:root {
+    /* Example: tweak primary color shades */
+    /* --filament-color-primary-600: #f59e0b; */
+}
+
+/* get the first div in container */
+.fi-layout > div:nth-child(2) {
+    background-color:#f8f8f8;
+
+}
+
+

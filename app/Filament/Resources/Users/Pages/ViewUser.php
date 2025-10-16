@@ -9,6 +9,10 @@ use Filament\Resources\Pages\ViewRecord;
 class ViewUser extends ViewRecord
 {
     protected static string $resource = UserResource::class;
+    public function getMaxContentWidth(): ?string
+    {
+        return "full";
+    }
 
     protected function getHeaderActions(): array
     {
