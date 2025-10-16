@@ -2,12 +2,13 @@
 
 namespace App\Providers;
 
-use Filament\Tables\Table;
 use App\Models\AdminUser;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\ServiceProvider;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
+use Filament\Tables\Table;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (config('app.force_https') || $this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
+
         Gate::define('manage_settings', function (AdminUser $user) {
             // For now, allow all admin users to manage settings
             // You can implement more granular permissions here
