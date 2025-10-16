@@ -8,12 +8,15 @@ use Filament\Resources\Pages\ListRecords;
 
 class ListPages extends ListRecords
 {
+    public function getMaxContentWidth(): ?string
+    {
+        return "full";
+    }
+
     protected static string $resource = PageResource::class;
 
     protected function getHeaderActions(): array
     {
-        return [
-            Actions\CreateAction::make(),
-        ];
+        return [Actions\CreateAction::make()];
     }
 }

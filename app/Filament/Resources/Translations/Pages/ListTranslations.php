@@ -13,6 +13,10 @@ use Filament\Notifications\Notification;
 class ListTranslations extends ListRecords
 {
     protected static string $resource = TranslationResource::class;
+    public function getMaxContentWidth(): ?string
+    {
+        return "full";
+    }
 
     protected function getHeaderActions(): array
     {
@@ -35,27 +39,27 @@ class ListTranslations extends ListRecords
     {
         $languages = Language::where('is_active', true)->get();
         $categories = TranslationCategory::with(['translationKeys.translationValues.language'])->get();
-        
+
         $publishedFiles = 0;
 
         foreach ($languages as $language) {
             $translations = [];
-            
+
             // Build translation array structure
             foreach ($categories as $category) {
                 $categoryTranslations = [];
-                
+
                 foreach ($category->translationKeys as $key) {
                     $translationValue = $key->translationValues
                         ->where('language_id', $language->id)
                         ->where('status', 'published')
                         ->first();
-                    
+
                     if ($translationValue) {
                         $categoryTranslations[$key->key] = $translationValue->value;
                     }
                 }
-                
+
                 if (!empty($categoryTranslations)) {
                     $translations[$category->key] = $categoryTranslations;
                 }
@@ -70,7 +74,7 @@ class ListTranslations extends ListRecords
                             ->where('language_id', $language->id)
                             ->where('status', 'published')
                             ->first();
-                        
+
                         if ($translationValue) {
                             $translations[$key->key] = $translationValue->value;
                         }
@@ -80,17 +84,17 @@ class ListTranslations extends ListRecords
 
             // Create the file content
             $fileContent = $this->generateTranslationFileContent($translations, $language);
-            
+
             // Ensure directory exists
             $langDir = resource_path("lang/{$language->code}");
             if (!File::exists($langDir)) {
                 File::makeDirectory($langDir, 0755, true);
             }
-            
+
             // Write the file
             $filePath = "{$langDir}/translation.php";
             File::put($filePath, $fileContent);
-            
+
             $publishedFiles++;
         }
 
@@ -104,7 +108,7 @@ class ListTranslations extends ListRecords
     protected function generateTranslationFileContent(array $translations, Language $language): string
     {
         $languageName = $language->name;
-        
+
         $content = "<?php\n\nreturn [\n\n";
         $content .= "    /*\n";
         $content .= "    |--------------------------------------------------------------------------\n";
@@ -132,7 +136,7 @@ class ListTranslations extends ListRecords
 
         // Add root-level translations
         $rootKeys = ['back', 'your_profile', 'services', 'get_started', 'about_berit', 'personal_information', 'permanent_address_info', 'first_name', 'last_name', 'email_address', 'country', 'street_address', 'postal_code', 'city', 'county', 'cancel', 'save', 'Current language'];
-        
+
         $content .= "    // Root-level translations\n";
         foreach ($rootKeys as $rootKey) {
             if (isset($translations[$rootKey]) && !is_array($translations[$rootKey])) {
@@ -142,7 +146,7 @@ class ListTranslations extends ListRecords
         }
 
         $content .= "\n];\n";
-        
+
         return $content;
     }
 }

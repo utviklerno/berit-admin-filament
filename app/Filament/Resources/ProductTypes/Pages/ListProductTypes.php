@@ -9,6 +9,10 @@ use Filament\Resources\Pages\ListRecords;
 class ListProductTypes extends ListRecords
 {
     protected static string $resource = ProductTypeResource::class;
+    public function getMaxContentWidth(): ?string
+    {
+        return "full";
+    }
 
     protected function getHeaderActions(): array
     {
