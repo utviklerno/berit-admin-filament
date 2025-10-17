@@ -11,6 +11,10 @@ use Filament\Resources\Pages\ListRecords;
 class ListSubpages extends ListRecords
 {
     protected static string $resource = SubpageResource::class;
+    public function getMaxContentWidth(): ?string
+    {
+        return "full";
+    }
 
     protected function getHeaderActions(): array
     {

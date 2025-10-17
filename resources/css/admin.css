@@ -10,9 +10,28 @@
  |
  */
 
-:root {
-    /* Example: tweak primary color shades */
-    /* --filament-color-primary-600: #f59e0b; */
+
+
+
+.custom-button-container {
+    & .icon {
+        mask-image: var(--icon-url);
+        -webkit-mask-image: var(--icon-url);
+        background-color: var(--icon-color, currentColor);
+        width: var(--icon-size, 1.5em);
+        height: var(--icon-size, 1.5em);
+        display: inline-block;
+        vertical-align: middle;
+        mask-size: 80%;
+        -webkit-mask-size: 80%;
+        mask-repeat: no-repeat;
+        -webkit-mask-repeat: no-repeat;
+        mask-position: center;
+        -webkit-mask-position: center;
+    }
+    &.notext span.label {
+        display: none;
+    }
 }
 
 /* get the first div in container
