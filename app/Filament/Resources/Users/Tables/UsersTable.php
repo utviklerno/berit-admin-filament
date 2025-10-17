@@ -17,70 +17,88 @@ class UsersTable
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make("name")
+                    ->label("Name")
+                    ->getStateUsing(
+                        fn($record) => trim(
+                            $record->name . " " . $record->lastname,
+                        ),
+                    )
+                    ->searchable(["name", "lastname"])
+                    ->sortable(),
+
+                TextColumn::make("email")
+                    ->label("Email address")
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('lastname')
+                TextColumn::make("phone")
                     ->searchable()
-                    ->sortable(),
-                TextColumn::make('email')
-                    ->label('Email address')
+                    ->toggleable()
+                    ->toggleable(isToggledHiddenByDefault: false),
+
+                TextColumn::make("mobile")
                     ->searchable()
-                    ->sortable(),
-                TextColumn::make('phone')
-                    ->searchable()
-                    ->toggleable(),
-                TextColumn::make('mobile')
-                    ->searchable()
-                    ->toggleable(),
-                TextColumn::make('email_verified_at')
+                    ->toggleable()
+                    ->toggleable(isToggledHiddenByDefault: false),
+                TextColumn::make("email_verified_at")
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: false),
+                TextColumn::make("is_admin")
+                    ->label("Admin")
+                    ->formatStateUsing(
+                        fn($state) => view("components.custom-icon", [
+                            "class" => "centered-icon",
+                            "name" => $state ? "check-circle" : "x-circle",
+                        ])->render(),
+                    )
+                    ->html()
+                    ->alignCenter(),
+
+                TextColumn::make("has_profile")
+                    ->label("Profile")
+                    ->getStateUsing(fn($record) => $record->profile !== null)
+                    ->formatStateUsing(
+                        fn($state) => view("components.custom-icon", [
+                            "class" => "centered-icon",
+                            "name" => $state ? "check-circle" : "x-circle",
+                        ])->render(),
+                    )
+                    ->html()
+                    ->alignCenter(),
+
+                TextColumn::make("locations_count")
+                    ->counts("locations")
+                    ->label("Locations")
+                    ->badge(),
+                TextColumn::make("items_count")
+                    ->counts("items")
+                    ->label("Items")
+                    ->badge(),
+                TextColumn::make("created_at")
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                IconColumn::make('is_admin')
-                    ->boolean()
-                    ->label('Admin'),
-                IconColumn::make('has_profile')
-                    ->boolean()
-                    ->label('Profile')
-                    ->getStateUsing(fn ($record) => $record->profile !== null),
-                TextColumn::make('locations_count')
-                    ->counts('locations')
-                    ->label('Locations')
-                    ->badge(),
-                TextColumn::make('items_count')
-                    ->counts('items')
-                    ->label('Items')
-                    ->badge(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
+                TextColumn::make("updated_at")
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Filter::make('is_admin')
-                    ->label('Admin Users')
-                    ->query(fn ($query) => $query->where('is_admin', true)),
-                Filter::make('has_profile')
-                    ->label('Has Profile')
-                    ->query(fn ($query) => $query->whereHas('profile')),
-                Filter::make('has_items')
-                    ->label('Has Items')
-                    ->query(fn ($query) => $query->whereHas('items')),
+                Filter::make("is_admin")
+                    ->label("Admin Users")
+                    ->query(fn($query) => $query->where("is_admin", true)),
+                Filter::make("has_profile")
+                    ->label("Has Profile")
+                    ->query(fn($query) => $query->whereHas("profile")),
+                Filter::make("has_items")
+                    ->label("Has Items")
+                    ->query(fn($query) => $query->whereHas("items")),
             ])
-            ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
-            ])
+            ->recordActions([ViewAction::make(), EditAction::make()])
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
+                BulkActionGroup::make([DeleteBulkAction::make()]),
             ])
-            ->defaultSort('created_at', 'desc');
+            ->defaultSort("created_at", "desc");
     }
 }

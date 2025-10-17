@@ -30,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
             match ($action->getName()) {
                 "delete" => $action->view("vendor.filament.actions.delete"),
                 "edit" => $action->view("vendor.filament.actions.edit"),
+                "view" => $action->view("vendor.filament.actions.view"),
                 default => null,
             };
         });
