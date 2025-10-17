@@ -2,10 +2,10 @@
     $recordKey = $getRecord()?->getKey();
 @endphp
 
-<button
+<a
     type="button"
     class="custom-button-container right notext"
-    wire:click="callAction('delete', { record: '{{ $recordKey }}' })">
+    wire:click="mountAction('delete', [], { table: true, recordKey: @js($recordKey) })">
     <x-custom-icon name="trash" />
     <span class="label">Delete</span>
-</button>
+</a>
