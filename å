@@ -33,6 +33,12 @@
         mask-position: center;
         -webkit-mask-position: center;
     }
+    &.active .icon {
+        background-color: #339933;
+    }
+    &.inactive .icon {
+        background-color: #aa333322;
+    }
     &.notext span.label {
         display: none;
     }
@@ -50,8 +56,8 @@
         height: var(--icon-size, 2rem);
         display: inline-block;
         vertical-align: middle;
-        mask-size: 80%;
-        -webkit-mask-size: 80%;
+        mask-size: 70%;
+        -webkit-mask-size: 70%;
         mask-repeat: no-repeat;
         -webkit-mask-repeat: no-repeat;
         mask-position: center;
@@ -62,3 +68,22 @@
     }
 }
 
+/* get the first div in container
+.fi-layout > div:nth-child(2) {
+    background-color:#ddd;
+
+}
+
+  .fi-sidebar-item {
+    &.fi-active {
+      & > .fi-sidebar-item-btn {
+        background-color: #fff;
+      }
+    }
+  }
+
+  .fi-sidebar-footer {
+    background-color: #fff;
+    border-radius: 5px;
+  }
+*/

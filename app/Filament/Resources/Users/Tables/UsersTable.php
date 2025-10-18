@@ -34,21 +34,22 @@ class UsersTable
                 TextColumn::make("phone")
                     ->searchable()
                     ->toggleable()
-                    ->toggleable(isToggledHiddenByDefault: false),
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make("mobile")
                     ->searchable()
                     ->toggleable()
-                    ->toggleable(isToggledHiddenByDefault: false),
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make("email_verified_at")
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: false),
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make("is_admin")
                     ->label("Admin")
                     ->formatStateUsing(
                         fn($state) => view("components.custom-icon", [
                             "class" => "centered-icon",
+                            "dataActive" => $state ? "active" : false,
                             "name" => $state ? "check-circle" : "x-circle",
                         ])->render(),
                     )
@@ -61,6 +62,7 @@ class UsersTable
                     ->formatStateUsing(
                         fn($state) => view("components.custom-icon", [
                             "class" => "centered-icon",
+                            "dataActive" => $state ? "active" : "inactive",
                             "name" => $state ? "check-circle" : "x-circle",
                         ])->render(),
                     )
