@@ -2,12 +2,12 @@
 
 namespace App\Filament\Resources\Subpages\Schemas;
 
+use App\Filament\Forms\Components\MediaRichEditor;
 use App\Models\Language;
 use App\Models\Page;
 use App\Models\Subpage;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
@@ -29,13 +29,15 @@ class SubpageForm
                 ->maxWidth("max-w-7xl")
                 ->tabs([
                     Tab::make("Content")->schema([
-                        RichEditor::make("html")
+                        MediaRichEditor::make("html")
                             ->label("Content")
                             ->nullable()
                             ->toolbarButtons([
                                 ["bold", "italic", "link", "h2", "h3"],
                                 ["grid", "attachFiles"],
                             ])
+                            ->fileAttachmentsDisk('public')
+                            ->fileAttachmentsDirectory('editor-uploads')
                             ->columnSpan(3),
                     ]),
                     Tab::make("Settings")->schema([

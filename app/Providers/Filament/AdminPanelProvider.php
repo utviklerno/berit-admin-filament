@@ -72,6 +72,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->renderHook(
+                'panels::body.end',
+                fn () => view('filament.components.media-browser-integration')
+            );
     }
 }
