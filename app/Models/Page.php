@@ -24,5 +24,10 @@ class Page extends Model
     {
         return $this->hasMany(Subpage::class);
     }
+
+    public function menuItems(): HasMany
+    {
+        return $this->hasMany(MenuItem::class);
+    }
 }
 

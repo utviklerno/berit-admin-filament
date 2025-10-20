@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Subpages\Pages;
 use App\Filament\Resources\Pages\PageResource;
 use App\Filament\Resources\Subpages\SubpageResource;
 use Filament\Resources\Pages\EditRecord;
+use Filament\Notifications\Notification;
 
 class EditSubpage extends EditRecord
 {
@@ -12,6 +13,13 @@ class EditSubpage extends EditRecord
     public function getMaxContentWidth(): ?string
     {
         return "full";
+    }
+
+    public function getHeaderWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\Subpages\Widgets\SubpageStatusWidget::class,
+        ];
     }
 
     public function getBreadcrumbs(): array
