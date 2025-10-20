@@ -24,6 +24,14 @@ class SubpageForm
     public static function configure(Schema $schema): Schema
     {
         return $schema->components([
+            Section::make()
+                ->schema([
+                    \Filament\Forms\Components\Placeholder::make('status_bar')
+                        ->label('')
+                        ->content(fn ($record) => $record ? view('filament.components.subpage-status-bar', ['record' => $record]) : '')
+                ])
+                ->columnSpanFull()
+                ->visible(fn ($record) => $record !== null),
             Tabs::make("SubpageTabs")
                 ->columns(4)
                 ->maxWidth("max-w-7xl")

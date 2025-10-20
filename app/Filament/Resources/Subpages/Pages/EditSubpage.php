@@ -5,21 +5,27 @@ namespace App\Filament\Resources\Subpages\Pages;
 use App\Filament\Resources\Pages\PageResource;
 use App\Filament\Resources\Subpages\SubpageResource;
 use Filament\Resources\Pages\EditRecord;
-use Filament\Notifications\Notification;
 
 class EditSubpage extends EditRecord
 {
     protected static string $resource = SubpageResource::class;
+    
     public function getMaxContentWidth(): ?string
     {
         return "full";
     }
 
-    public function getHeaderWidgets(): array
+    protected function getHeaderActions(): array
     {
-        return [
-            \App\Filament\Resources\Subpages\Widgets\SubpageStatusWidget::class,
-        ];
+        return array_merge(parent::getHeaderActions(), [
+            \Filament\Actions\Action::make('status')
+                ->label('Status')
+                ->disabled()
+                ->badge()
+                ->color('info')
+                ->icon('heroicon-o-information-circle')
+                ->hidden(),
+        ]);
     }
 
     public function getBreadcrumbs(): array

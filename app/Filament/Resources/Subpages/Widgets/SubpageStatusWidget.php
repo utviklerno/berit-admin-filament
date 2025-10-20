@@ -11,4 +11,11 @@ class SubpageStatusWidget extends Widget
     protected int | string | array $columnSpan = 'full';
 
     public $record;
+
+    protected function getViewData(): array
+    {
+        return [
+            'record' => $this->record,
+        ];
+    }
 }
