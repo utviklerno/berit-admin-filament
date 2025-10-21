@@ -20,11 +20,11 @@ class ActivityLogResource extends Resource
 {
     protected static ?string $model = ActivityLog::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = null;
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Settings';
+        return "Settings";
     }
 
     public static function getNavigationSort(): ?int
@@ -50,20 +50,20 @@ class ActivityLogResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
-        ];
+                //
+            ];
     }
 
     public static function getNavigationLabel(): string
     {
-        return 'Logs';
+        return "Logs";
     }
-    
+
     public static function canCreate(): bool
     {
         return false;
     }
-    
+
     public static function canEdit($record): bool
     {
         return false;
@@ -72,8 +72,8 @@ class ActivityLogResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListActivityLogs::route('/'),
-            'view' => ViewActivityLog::route('/{record}'),
+            "index" => ListActivityLogs::route("/"),
+            "view" => ViewActivityLog::route("/{record}"),
         ];
     }
 }

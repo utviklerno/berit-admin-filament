@@ -18,11 +18,11 @@ class FolderResource extends Resource
 {
     protected static ?string $model = Folder::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = null;
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Media';
+        return "Media";
     }
 
     public static function getNavigationSort(): ?int
@@ -42,17 +42,15 @@ class FolderResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            RelationManagers\FilesRelationManager::class,
-        ];
+        return [RelationManagers\FilesRelationManager::class];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => ListFolders::route('/'),
-            'create' => CreateFolder::route('/create'),
-            'edit' => EditFolder::route('/{record}/edit'),
+            "index" => ListFolders::route("/"),
+            "create" => CreateFolder::route("/create"),
+            "edit" => EditFolder::route("/{record}/edit"),
         ];
     }
 }

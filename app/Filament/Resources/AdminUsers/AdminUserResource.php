@@ -17,11 +17,11 @@ class AdminUserResource extends Resource
 {
     protected static ?string $model = AdminUser::class;
 
-    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-shield-check';
+    protected static BackedEnum|string|null $navigationIcon = null;
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Management';
+        return "Management";
     }
 
     public static function getNavigationSort(): ?int
@@ -47,9 +47,9 @@ class AdminUserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListAdminUsers::route('/'),
-            'create' => CreateAdminUser::route('/create'),
-            'edit' => EditAdminUser::route('/{record}/edit'),
+            "index" => ListAdminUsers::route("/"),
+            "create" => CreateAdminUser::route("/create"),
+            "edit" => EditAdminUser::route("/{record}/edit"),
         ];
     }
 }

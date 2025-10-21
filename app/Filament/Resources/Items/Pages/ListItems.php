@@ -9,11 +9,13 @@ use Filament\Resources\Pages\ListRecords;
 class ListItems extends ListRecords
 {
     protected static string $resource = ItemResource::class;
+    public function getMaxContentWidth(): ?string
+    {
+        return "full";
+    }
 
     protected function getHeaderActions(): array
     {
-        return [
-            Actions\CreateAction::make(),
-        ];
+        return [Actions\CreateAction::make()];
     }
 }

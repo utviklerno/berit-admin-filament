@@ -9,11 +9,13 @@ use Filament\Resources\Pages\ListRecords;
 class ListActivityLogs extends ListRecords
 {
     protected static string $resource = ActivityLogResource::class;
+    public function getMaxContentWidth(): ?string
+    {
+        return "full";
+    }
 
     protected function getHeaderActions(): array
     {
-        return [
-            CreateAction::make(),
-        ];
+        return [CreateAction::make()];
     }
 }

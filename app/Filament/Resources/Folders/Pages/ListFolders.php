@@ -9,11 +9,13 @@ use Filament\Resources\Pages\ListRecords;
 class ListFolders extends ListRecords
 {
     protected static string $resource = FolderResource::class;
+    public function getMaxContentWidth(): ?string
+    {
+        return "full";
+    }
 
     protected function getHeaderActions(): array
     {
-        return [
-            CreateAction::make(),
-        ];
+        return [CreateAction::make()];
     }
 }
