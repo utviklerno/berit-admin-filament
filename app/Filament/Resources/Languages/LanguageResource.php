@@ -11,20 +11,21 @@ use App\Models\Language;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-
+use BackedEnum;
 class LanguageResource extends Resource
 {
     protected static ?string $model = Language::class;
+    protected static string|BackedEnum|null $navigationIcon = "icon-folder";
 
-    protected static ?string $navigationLabel = 'Languages';
+    protected static ?string $navigationLabel = "Languages";
 
-    protected static ?string $modelLabel = 'Language';
+    protected static ?string $modelLabel = "Language";
 
-    protected static ?string $pluralModelLabel = 'Languages';
+    protected static ?string $pluralModelLabel = "Languages";
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Settings';
+        return "Settings";
     }
 
     public static function getNavigationSort(): ?int
@@ -45,9 +46,9 @@ class LanguageResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListLanguages::route('/'),
-            'create' => CreateLanguage::route('/create'),
-            'edit' => EditLanguage::route('/{record}/edit'),
+            "index" => ListLanguages::route("/"),
+            "create" => CreateLanguage::route("/create"),
+            "edit" => EditLanguage::route("/{record}/edit"),
         ];
     }
 }

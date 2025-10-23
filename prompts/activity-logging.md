@@ -76,6 +76,7 @@ protected function getModelIdentifier(Model $model): string
 ## Currently Logged Models
 
 The following models are currently configured for activity logging:
+- `AdminUser` - Admin users
 - `Page` - Pages
 - `Subpage` - Subpages (page translations/versions)
 - `Menu` - Menus

@@ -12,20 +12,21 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 use App\Filament\Resources\Pages\RelationManagers\SubpagesRelationManager;
-
+use BackedEnum;
 class PageResource extends Resource
 {
+    protected static string|BackedEnum|null $navigationIcon = "icon-book-open";
     protected static ?string $model = Page::class;
 
-    protected static ?string $navigationLabel = 'Pages';
+    protected static ?string $navigationLabel = "Pages";
 
-    protected static ?string $modelLabel = 'Page';
+    protected static ?string $modelLabel = "Page";
 
-    protected static ?string $pluralModelLabel = 'Pages';
+    protected static ?string $pluralModelLabel = "Pages";
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Site';
+        return "Site";
     }
 
     public static function getNavigationSort(): ?int
@@ -45,17 +46,15 @@ class PageResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            SubpagesRelationManager::class,
-        ];
+        return [SubpagesRelationManager::class];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => ListPages::route('/'),
-            'create' => CreatePage::route('/create'),
-            'edit' => EditPage::route('/{record}/edit'),
+            "index" => ListPages::route("/"),
+            "create" => CreatePage::route("/create"),
+            "edit" => EditPage::route("/{record}/edit"),
         ];
     }
 }

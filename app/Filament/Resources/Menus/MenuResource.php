@@ -12,20 +12,22 @@ use App\Models\Menu;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use BackedEnum;
 
 class MenuResource extends Resource
 {
     protected static ?string $model = Menu::class;
+    protected static string|BackedEnum|null $navigationIcon = "icon-cards";
 
-    protected static ?string $navigationLabel = 'Menus';
+    protected static ?string $navigationLabel = "Menus";
 
-    protected static ?string $modelLabel = 'Menu';
+    protected static ?string $modelLabel = "Menu";
 
-    protected static ?string $pluralModelLabel = 'Menus';
+    protected static ?string $pluralModelLabel = "Menus";
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Site';
+        return "Site";
     }
 
     public static function getNavigationSort(): ?int
@@ -45,17 +47,15 @@ class MenuResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            MenuItemsRelationManager::class,
-        ];
+        return [MenuItemsRelationManager::class];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => ListMenus::route('/'),
-            'create' => CreateMenu::route('/create'),
-            'edit' => EditMenu::route('/{record}/edit'),
+            "index" => ListMenus::route("/"),
+            "create" => CreateMenu::route("/create"),
+            "edit" => EditMenu::route("/{record}/edit"),
         ];
     }
 }

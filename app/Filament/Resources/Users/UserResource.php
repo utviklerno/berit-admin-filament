@@ -9,6 +9,7 @@ use App\Filament\Resources\Users\Pages\ViewUser;
 use App\Filament\Resources\Users\Schemas\UserForm;
 use App\Filament\Resources\Users\Tables\UsersTable;
 use App\Models\User;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -16,10 +17,11 @@ use Filament\Tables\Table;
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
+    protected static string|BackedEnum|null $navigationIcon = "icon-user-circle";
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Management';
+        return "Management";
     }
 
     public static function getNavigationSort(): ?int
@@ -48,10 +50,10 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListUsers::route('/'),
-            'create' => CreateUser::route('/create'),
-            'view' => ViewUser::route('/{record}'),
-            'edit' => EditUser::route('/{record}/edit'),
+            "index" => ListUsers::route("/"),
+            "create" => CreateUser::route("/create"),
+            "view" => ViewUser::route("/{record}"),
+            "edit" => EditUser::route("/{record}/edit"),
         ];
     }
 }

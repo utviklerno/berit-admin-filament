@@ -57,6 +57,7 @@ class ActivityLogsTable
                 SelectFilter::make('subject_type')
                     ->label('Type')
                     ->options([
+                        'App\Models\AdminUser' => 'Admin User',
                         'App\Models\Page' => 'Page',
                         'App\Models\Subpage' => 'Subpage',
                         'App\Models\Menu' => 'Menu',

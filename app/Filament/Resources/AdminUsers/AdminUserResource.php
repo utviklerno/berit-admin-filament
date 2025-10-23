@@ -17,11 +17,11 @@ class AdminUserResource extends Resource
 {
     protected static ?string $model = AdminUser::class;
 
-    protected static BackedEnum|string|null $navigationIcon = null;
+    protected static string|BackedEnum|null $navigationIcon = "icon-user-circle-gear";
 
     public static function getNavigationGroup(): ?string
     {
-        return "Management";
+        return "Settings";
     }
 
     public static function getNavigationSort(): ?int

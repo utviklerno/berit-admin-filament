@@ -11,20 +11,21 @@ use App\Models\ProductType;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-
+use BackedEnum;
 class ProductTypeResource extends Resource
 {
     protected static ?string $model = ProductType::class;
+    protected static string|BackedEnum|null $navigationIcon = "icon-folder";
 
-    protected static ?string $navigationLabel = 'Product Types';
+    protected static ?string $navigationLabel = "Product Types";
 
-    protected static ?string $modelLabel = 'Product Type';
+    protected static ?string $modelLabel = "Product Type";
 
-    protected static ?string $pluralModelLabel = 'Product Types';
+    protected static ?string $pluralModelLabel = "Product Types";
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Settings';
+        return "Settings";
     }
 
     public static function getNavigationSort(): ?int
@@ -44,17 +45,15 @@ class ProductTypeResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            RelationManagers\ItemsRelationManager::class,
-        ];
+        return [RelationManagers\ItemsRelationManager::class];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => ListProductTypes::route('/'),
-            'create' => CreateProductType::route('/create'),
-            'edit' => EditProductType::route('/{record}/edit'),
+            "index" => ListProductTypes::route("/"),
+            "create" => CreateProductType::route("/create"),
+            "edit" => EditProductType::route("/{record}/edit"),
         ];
     }
 }

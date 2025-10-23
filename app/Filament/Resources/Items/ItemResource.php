@@ -11,20 +11,22 @@ use App\Models\UserItem;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use BackedEnum;
 
 class ItemResource extends Resource
 {
     protected static ?string $model = UserItem::class;
+    protected static string|BackedEnum|null $navigationIcon = "icon-folder";
 
-    protected static ?string $navigationLabel = 'Items';
+    protected static ?string $navigationLabel = "Items";
 
-    protected static ?string $modelLabel = 'Item';
+    protected static ?string $modelLabel = "Item";
 
-    protected static ?string $pluralModelLabel = 'Items';
+    protected static ?string $pluralModelLabel = "Items";
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Management';
+        return "Management";
     }
 
     public static function getNavigationSort(): ?int
@@ -45,9 +47,9 @@ class ItemResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListItems::route('/'),
-            'create' => CreateItem::route('/create'),
-            'edit' => EditItem::route('/{record}/edit'),
+            "index" => ListItems::route("/"),
+            "create" => CreateItem::route("/create"),
+            "edit" => EditItem::route("/{record}/edit"),
         ];
     }
 }

@@ -13,6 +13,7 @@ use App\Models\File;
 use App\Models\ProductType;
 use App\Models\ProductTypeItem;
 use App\Observers\ActivityLogObserver;
+use Filament\Facades\Filament;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
 use Filament\Tables\Table;
@@ -36,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        AdminUser::observe(ActivityLogObserver::class);
         Page::observe(ActivityLogObserver::class);
         Subpage::observe(ActivityLogObserver::class);
         Menu::observe(ActivityLogObserver::class);
@@ -80,6 +82,13 @@ class AppServiceProvider extends ServiceProvider
             "primary" => Color::Amber,
             "success" => Color::Emerald,
             "warning" => Color::Yellow,
+        ]);
+
+        Filament::registerNavigationGroups([
+            'Management',
+            'Media',
+            'Site',
+            'Settings',
         ]);
     }
 }

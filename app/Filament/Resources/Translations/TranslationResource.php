@@ -12,20 +12,21 @@ use App\Models\TranslationCategory;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-
+use BackedEnum;
 class TranslationResource extends Resource
 {
     protected static ?string $model = TranslationCategory::class;
+    protected static string|BackedEnum|null $navigationIcon = "icon-folder";
 
-    protected static ?string $navigationLabel = 'Translations';
+    protected static ?string $navigationLabel = "Translations";
 
-    protected static ?string $modelLabel = 'Translation Category';
+    protected static ?string $modelLabel = "Translation Category";
 
-    protected static ?string $pluralModelLabel = 'Translation Categories';
+    protected static ?string $pluralModelLabel = "Translation Categories";
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Settings';
+        return "Settings";
     }
 
     public static function getNavigationSort(): ?int
@@ -45,17 +46,15 @@ class TranslationResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            TranslationKeysRelationManager::class,
-        ];
+        return [TranslationKeysRelationManager::class];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => ListTranslations::route('/'),
-            'create' => CreateTranslation::route('/create'),
-            'edit' => EditTranslation::route('/{record}/edit'),
+            "index" => ListTranslations::route("/"),
+            "create" => CreateTranslation::route("/create"),
+            "edit" => EditTranslation::route("/{record}/edit"),
         ];
     }
 }

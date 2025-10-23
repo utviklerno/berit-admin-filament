@@ -8,17 +8,16 @@ use App\Filament\Resources\Folders\Pages\ListFolders;
 use App\Filament\Resources\Folders\Schemas\FolderForm;
 use App\Filament\Resources\Folders\Tables\FoldersTable;
 use App\Models\Folder;
-use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use BackedEnum;
 
 class FolderResource extends Resource
 {
     protected static ?string $model = Folder::class;
 
-    protected static string|BackedEnum|null $navigationIcon = null;
+    protected static string|BackedEnum|null $navigationIcon = "icon-folders";
 
     public static function getNavigationGroup(): ?string
     {
