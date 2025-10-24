@@ -21,16 +21,11 @@ use BackedEnum;
 class PaymentSettings extends Page implements HasSchemas
 {
     use InteractsWithSchemas;
-    protected static string|BackedEnum|null $navigationIcon = "icon-chat-text";
+    protected static string|BackedEnum|null $navigationIcon = "icon-credit-card";
 
     protected string $view = "filament.pages.payment-settings";
 
     public ?array $data = [];
-
-    public static function getNavigationIcon(): ?string
-    {
-        return null;
-    }
 
     public static function getNavigationGroup(): ?string
     {
@@ -44,7 +39,7 @@ class PaymentSettings extends Page implements HasSchemas
 
     public static function getNavigationSort(): ?int
     {
-        return 100;
+        return 999;
     }
 
     public function mount(): void

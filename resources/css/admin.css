@@ -9,23 +9,63 @@
  | (or `npm run build`) to apply changes.
  |
  */
+
+
 @layer components {
-  .fi-sidebar-group-items {
-    row-gap: calc(var(--spacing) * 0);
-  }
+
+    .fi-sidebar-item-btn {
+        padding: calc(var(--spacing) * 1);
+    }
+
+    .fi-sidebar-group-items {
+        row-gap: calc(var(--spacing) * 0);
+    }
+
+    .fi-sidebar-item {
+        &.fi-active,
+        &.fi-sidebar-item-has-active-child-items {
+            background-color: #000000aa;
+            border-radius: 5px;
+        }
+
+        &.fi-active {
+            &>.fi-sidebar-item-btn {
+                background: none;
+                color: #fff;
+
+                &>.fi-icon {
+                    color: #fff;
+                }
+
+            }
+        }
+    }
+    .fi-sidebar-item.fi-active > .fi-sidebar-item-btn:hover {
+        background: none !important;
+        color: #fff !important;
+    }
+    .fi-sidebar-item.fi-active > a.fi-sidebar-item-btn.fi-sidebar-item-btn .fi-sidebar-item-label {
+        color: #fff;
+    }
 }
-@layer components {
-  .fi-sidebar-item-btn {
-    padding: calc(var(--spacing) * 1);
-  }
-}
+
+
+
+
+
+
+
+
+
 
 
 .custom-button-container {
     cursor: pointer;
+
     &.centered-icon {
         text-align: center;
     }
+
     & .icon {
         mask-image: var(--icon-url);
         -webkit-mask-image: var(--icon-url);
@@ -41,15 +81,19 @@
         mask-position: center;
         -webkit-mask-position: center;
     }
+
     &.notext span.label {
         display: none;
     }
 }
+
 .custom-icon-container {
     cursor: pointer;
+
     &.centered-icon {
         text-align: center;
     }
+
     & .icon {
         mask-image: var(--icon-url);
         -webkit-mask-image: var(--icon-url);
@@ -65,6 +109,7 @@
         mask-position: center;
         -webkit-mask-position: center;
     }
+
     &.notext span.label {
         display: none;
     }
@@ -79,5 +124,3 @@
     --icon-color: #aa333322;
     background-color: var(--icon-color, currentColor);
 }
-
-
