@@ -9,8 +9,16 @@
  | (or `npm run build`) to apply changes.
  |
  */
-
-
+@layer components {
+  .fi-sidebar-group-items {
+    row-gap: calc(var(--spacing) * 0);
+  }
+}
+@layer components {
+  .fi-sidebar-item-btn {
+    padding: calc(var(--spacing) * 1);
+  }
+}
 
 
 .custom-button-container {
@@ -61,4 +69,15 @@
         display: none;
     }
 }
+
+.custom-icon-container span.icon.active {
+    --icon-color: #339933;
+    background-color: var(--icon-color, currentColor);
+}
+
+.custom-icon-container span.icon.inactive {
+    --icon-color: #aa333322;
+    background-color: var(--icon-color, currentColor);
+}
+
 
